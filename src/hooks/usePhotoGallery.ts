@@ -35,21 +35,19 @@ export function usePhotoGallery() {
         };
       };
 
-    const takePhoto = async () => {
+      const takePhoto = async () => {
         const cameraPhoto = await getPhoto({
-            resultType: CameraResultType.Uri,
-            source: CameraSource.Camera,
-            quality: 100
+          resultType: CameraResultType.Uri,
+          source: CameraSource.Camera,
+          quality: 100
         });
-
+      
         const fileName = new Date().getTime() + '.jpeg';
-        const newPhotos = [{
-            filepath: fileName,
-            webviewPath: cameraPhoto.webPath
-        }, ...photos];
-        setPhotos(newPhotos)
-    };
-
+        console.log(fileName)
+        const savedFileImage = await savePicture(cameraPhoto, fileName);
+        const newPhotos = [savedFileImage, ...photos];
+        setPhotos(newPhotos);
+      };
     
 
 
